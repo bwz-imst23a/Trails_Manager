@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main className="container mx-auto px-4 py-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-[var(--secondary)]">Trail App</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-[var(--secondary)]">Rappitrails</h1>
         <div>
           {/* //todo */}
           <div className="bg-[var(--primary)] text-[var(--primary-foreground)] p-2 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">

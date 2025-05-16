@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import type { Trail } from "@/types/trails"
 
 interface TrailCardProps {
@@ -24,24 +25,26 @@ export default function TrailCard({ trail, imageId = 1 }: TrailCardProps) {
   const imageUrl = `https://picsum.photos/id/${imageId}/1200/800`
 
   return (
-    <div className="trail-card h-full">
-      <div className="relative w-full h-full aspect-video">
-        <Image
-          src={imageUrl || "/placeholder.svg"}
-          alt={trail.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="trail-card-image object-cover"
-          priority={imageId <= 2} // Prioritize loading the first two images
-        />
+    <Link href={`/trail/${trail.id}`} className="block h-full">
+      <div className="trail-card h-full transition-transform duration-200 hover:scale-[1.02] cursor-pointer">
+        <div className="relative w-full h-full aspect-video">
+          <Image
+            src={imageUrl || "/placeholder.svg"}
+            alt={trail.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="trail-card-image object-cover"
+            priority={imageId <= 2} // Prioritize loading the first two images
+          />
 
-        <div className={`difficulty-badge difficulty-${trail.difficulty.toLowerCase()}`}>{trail.difficulty}</div>
+          <div className={`difficulty-badge difficulty-${trail.difficulty.toLowerCase()}`}>{trail.difficulty}</div>
 
-        <div className="trail-card-overlay">
-          <h2 className="trail-card-title">{trail.name}</h2>
-          <div className={`trail-card-date ${isPastTrail ? "past-date" : ""}`}>{formattedDate}</div>
+          <div className="trail-card-overlay">
+            <h2 className="trail-card-title">{trail.name}</h2>
+            <div className={`trail-card-date ${isPastTrail ? "past-date" : ""}`}>{formattedDate}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
