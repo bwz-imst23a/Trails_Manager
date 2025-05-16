@@ -137,6 +137,11 @@
   }
 }
 
+/* Layout Grid for Trail Cards */
+.trail-cards-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
 /* Trail card styles */
 .trail-card {
   @apply relative overflow-hidden rounded-lg;
@@ -147,15 +152,22 @@
 }
 
 .trail-card-overlay {
-  @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/100 to-transparent h-1/2 flex items-end p-3 sm:p-4 md:p-6;
+  @apply absolute bottom-0 left-0 right-0 flex items-end p-3 sm:p-4 md:p-6;
+  height: 50%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .trail-card-title {
-  @apply text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold;
+  @apply text-white text-lg sm:text-xl md:text-2xl font-bold mb-0 ml-0;
 }
 
 .trail-card-date {
-  @apply text-white text-sm sm:text-base md:text-lg lg:text-2xl ml-auto;
+  @apply text-white text-sm sm:text-base md:text-lg mb-0 ml-auto;
 }
 
 .trail-card-date.past-date {
@@ -163,10 +175,9 @@
 }
 
 .difficulty-badge {
-  @apply absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 text-white font-bold px-2 py-1 sm:px-3 sm:py-2 rounded text-sm sm:text-base md:text-lg lg:text-2xl;
+  @apply absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 text-white font-bold px-2 py-1 sm:px-3 sm:py-2 rounded text-sm sm:text-sm md:text-base lg:text-lg;
 }
 
-/* Smaller badge for detail page */
 .difficulty-badge-small {
   @apply text-white font-bold px-2 py-0.5 rounded text-xs;
 }
