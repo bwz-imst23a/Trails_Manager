@@ -41,75 +41,91 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Trail difficulty colors */
+  --color-t1: #0d6efd;
+  --color-t2: #20c997;
+  --color-t3: #ffc107;
+  --color-t4: #fd7e14;
+  --color-t5: #dc3545;
+  --color-past-date: #dc3545;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --background: #f4fff1;
+  --foreground: #137547;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #7bc950;
+  --primary-foreground: #ffffff;
+  --secondary: #137547;
+  --secondary-foreground: #ffffff;
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --muted-foreground: #137547;
+  --accent: #f4fff1;
+  --accent-foreground: #137547;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: #137547;
+  --input: #137547;
+  --ring: #7bc950;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #f4fff1;
+  --sidebar-foreground: #137547;
+  --sidebar-primary: #7bc950;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4fff1;
+  --sidebar-accent-foreground: #137547;
+  --sidebar-border: #137547;
+  --sidebar-ring: #7bc950;
+
+  /* Trail difficulty colors */
+  --color-t1: #0d6efd;
+  --color-t2: #20c997;
+  --color-t3: #ffc107;
+  --color-t4: #fd7e14;
+  --color-t5: #dc3545;
+  --color-past-date: #dc3545;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #137547;
+  --card-foreground: #ffffff;
+  --popover: #137547;
+  --popover-foreground: #ffffff;
+  --primary: #7bc950;
+  --primary-foreground: #000000;
+  --secondary: #f4fff1;
+  --secondary-foreground: #000000;
+  --muted: #137547;
+  --muted-foreground: #f4fff1;
+  --accent: #137547;
+  --accent-foreground: #f4fff1;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: #f4fff1;
+  --input: #f4fff1;
+  --ring: #7bc950;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #7bc950;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #137547;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #f4fff1;
+  --sidebar-ring: #7bc950;
 }
 
 @layer base {
@@ -119,4 +135,53 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Trail card styles */
+.trail-card {
+  @apply relative overflow-hidden rounded-lg;
+}
+
+.trail-card-image {
+  @apply w-full h-full object-cover;
+}
+
+.trail-card-overlay {
+  @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/100 to-transparent h-1/2 flex items-end p-3 sm:p-4 md:p-6;
+}
+
+.trail-card-title {
+  @apply text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold;
+}
+
+.trail-card-date {
+  @apply text-white text-sm sm:text-base md:text-lg lg:text-2xl ml-auto;
+}
+
+.trail-card-date.past-date {
+  @apply bg-[var(--color-past-date)] px-2 py-1 sm:px-3 rounded;
+}
+
+.difficulty-badge {
+  @apply absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 text-white font-bold px-2 py-1 sm:px-3 sm:py-2 rounded text-sm sm:text-base md:text-lg lg:text-2xl;
+}
+
+.difficulty-t1 {
+  @apply bg-[var(--color-t1)];
+}
+
+.difficulty-t2 {
+  @apply bg-[var(--color-t2)];
+}
+
+.difficulty-t3 {
+  @apply bg-[var(--color-t3)];
+}
+
+.difficulty-t4 {
+  @apply bg-[var(--color-t4)];
+}
+
+.difficulty-t5 {
+  @apply bg-[var(--color-t5)];
 }
