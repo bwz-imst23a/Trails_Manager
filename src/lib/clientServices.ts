@@ -20,15 +20,15 @@ export const trailService = {
         return result;
     },
 
-    async getTrail(id: string): Promise<Trail> {
+    async getTrail(id: string): Promise<Trail | null> {
         const response = await fetch(`${API_BASE_URL}/api/trails/${id}`);
+        if (response.status === 404) {
+            return null;
+        }
         const result = await response.json();
-
-
         if (!response.ok) {
             throw new Error(result.error || 'Failed to fetch trail');
         }
-
         return result;
     },
 
