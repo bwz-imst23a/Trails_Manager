@@ -14,7 +14,7 @@ function formatDuration(minutes: number): string {
 
 export default async function TrailDetailPage({ params }: { params: { id: string } }) {
   // Properly await the params object before accessing its properties
-  const { id } = params
+  const { id } = await params
 
   const trail = await trailService.getTrail(id)
 
