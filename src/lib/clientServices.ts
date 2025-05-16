@@ -9,6 +9,7 @@ export const trailService = {
      * @throws An error if the server response is not OK or if an error message is returned.
      */
     async addTrail(trailData: Trail): Promise<{ id: string; data: Trail }> {
+        throw new Error('Not implemented');
         const response = await fetch('/api/trails', {
             method: 'POST',
             headers: {

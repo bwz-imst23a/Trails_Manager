@@ -1,9 +1,8 @@
 export interface Trail {
-    id: string;
     name: string;
     description: string;
-    distance: number;
-    durationMinute: number;
+    distanceKm: number;
+    durationMinutes: number;
     elevationGainMeters: number;
     difficulty: 'T1' | 'T2' | 'T3' | 'T4' | 'T5';
     imageUrl: string;
