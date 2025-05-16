@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { getTrail } from "@/lib/persistencyService"
+import { trailService } from "@/lib/clientServices"
 import { ArrowLeft, Cloud } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
@@ -14,8 +14,10 @@ function formatDuration(minutes: number): string {
 
 export default async function TrailDetailPage({ params }: { params: { id: string } }) {
   // Properly await the params object before accessing its properties
-  const { id } = await params
-  const trail = getTrail(id)
+  const { id } = params
+
+  const trail = await trailService.getTrail(id)
+
 
   // If trail not found, show 404
   if (!trail) {
@@ -26,14 +28,13 @@ export default async function TrailDetailPage({ params }: { params: { id: string
   const formattedDate = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "2-digit",
-    year: "2-digit",
+    year: "numeric"
   })
     .format(new Date(trail.date))
     .replace(/\//g, ".")
 
   // Use trail ID to get a consistent image
-  const imageId = Number.parseInt(trail.id) || 1
-  const imageUrl = `https://picsum.photos/id/${imageId}/1200/800`
+  const imageUrl = trail.imageUrl
 
   return (
     <main className="container mx-auto px-4 py-6 bg-[var(--background)]">
@@ -78,6 +79,7 @@ export default async function TrailDetailPage({ params }: { params: { id: string
       {/* Information cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Weather card */}
+        {/* TODO: Actually do this thing */}
         <div className="bg-[var(--primary)] rounded-lg p-4 text-[var(--primary-foreground)]">
           <h2 className="text-xl font-bold mb-4 text-center">Weather</h2>
           <div className="flex justify-center mb-4">
@@ -113,12 +115,12 @@ export default async function TrailDetailPage({ params }: { params: { id: string
             <div className="space-y-1">
               <div className="flex justify-between">
                 <span>Endurance:</span>
-                <span className="text-xs">{Math.min(Math.max(Math.round(trail.distance / 15 * 100), 20), 100)}%</span>
+                <span className="text-xs">{Math.min(Math.max(Math.round(trail.distanceKm / 15 * 100), 20), 100)}%</span>
               </div>
               <div className="w-full bg-white/30 rounded-full h-2">
-                <div 
-                  className="bg-white rounded-full h-2" 
-                  style={{ width: `${Math.min(Math.max(Math.round(trail.distance / 15 * 100), 20), 100)}%` }}
+                <div
+                  className="bg-white rounded-full h-2"
+                  style={{ width: `${Math.min(Math.max(Math.round(trail.distanceKm / 15 * 100), 20), 100)}%` }}
                 ></div>
               </div>
             </div>
@@ -129,8 +131,8 @@ export default async function TrailDetailPage({ params }: { params: { id: string
                 <span className="text-xs">{20 * parseInt(trail.difficulty.substring(1))}%</span>
               </div>
               <div className="w-full bg-white/30 rounded-full h-2">
-                <div 
-                  className="bg-white rounded-full h-2" 
+                <div
+                  className="bg-white rounded-full h-2"
                   style={{ width: `${20 * parseInt(trail.difficulty.substring(1))}%` }}
                 ></div>
               </div>
@@ -142,8 +144,8 @@ export default async function TrailDetailPage({ params }: { params: { id: string
                 <span className="text-xs">{Math.min(Math.max(Math.round(trail.elevationGainMeters / 10), 20), 100)}%</span>
               </div>
               <div className="w-full bg-white/30 rounded-full h-2">
-                <div 
-                  className="bg-white rounded-full h-2" 
+                <div
+                  className="bg-white rounded-full h-2"
                   style={{ width: `${Math.min(Math.max(Math.round(trail.elevationGainMeters / 10), 20), 100)}%` }}
                 ></div>
               </div>
@@ -157,7 +159,7 @@ export default async function TrailDetailPage({ params }: { params: { id: string
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Distance:</span>
-              <span>{trail.distance} km</span>
+              <span>{trail.distanceKm} km</span>
             </div>
             <div className="flex justify-between">
               <span>Height difference:</span>
@@ -169,7 +171,7 @@ export default async function TrailDetailPage({ params }: { params: { id: string
             </div>
             <div className="flex justify-between">
               <span>Total time:</span>
-              <span>{formatDuration(trail.durationMinute)}</span>
+              <span>{formatDuration(trail.durationMinutes)}</span>
             </div>
             <div className="flex justify-between">
               <span>Starting time:</span>

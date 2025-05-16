@@ -7,6 +7,7 @@ export default async function Home() {
   // Server-side data fetching
   const trails = await trailService.getTrails()
 
+
   // Create pairs of trails for the alternating layout
   const createTrailPairs = (trails: Trail[]) => {
     const pairs = []

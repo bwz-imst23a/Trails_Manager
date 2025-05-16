@@ -3,12 +3,30 @@ import { Trail } from "@/types/trails";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
 export const trailService = {
+    /**
+     * Fetches a list of trails from the API.
+     *
+     * @returns {Promise<Trail[]>} A promise that resolves to an array of Trail objects.
+     * @throws {Error} Throws an error if the API request fails or the response is not ok.
+     */
     async getTrails(): Promise<Trail[]> {
         const response = await fetch(`${API_BASE_URL}/api/trails`);
         const result = await response.json();
 
         if (!response.ok) {
             throw new Error(result.error || 'Failed to fetch trails');
+        }
+
+        return result;
+    },
+
+    async getTrail(id: string): Promise<Trail> {
+        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`);
+        const result = await response.json();
+
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Failed to fetch trail');
         }
 
         return result;
