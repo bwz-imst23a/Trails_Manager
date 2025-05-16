@@ -38,6 +38,8 @@ const trailSchema = z.object({
         errorMap: () => ({ message: "Invalid difficulty level" }),
     }),
     imageUrl: z.string().url("Invalid URL").optional(),
+    date: z.string().min(1, "Date is required"),
+
 })
 
 export default function AddTrailButton() {
@@ -54,6 +56,7 @@ export default function AddTrailButton() {
             elevationGainMeters: 0,
             difficulty: "T1",
             imageUrl: "",
+            date: "",
         }
     })
 
@@ -132,12 +135,17 @@ export default function AddTrailButton() {
                                         <FormItem>
                                             <FormLabel>Distance (km)</FormLabel>
                                             <FormControl>
-                                                <Input type="number" placeholder="Distance in km" {...field} onChange={(e) => {
-                                                    const value = e.target.valueAsNumber;
-                                                    if (!isNaN(value)) {
-                                                        field.onChange(value);
-                                                    }
-                                                }} />
+                                                <Input
+                                                    type="number"
+                                                    placeholder="Distance in km"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        const value = e.target.valueAsNumber;
+                                                        if (!isNaN(value)) {
+                                                            field.onChange(value);
+                                                        }
+                                                    }}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -149,12 +157,17 @@ export default function AddTrailButton() {
                                         <FormItem>
                                             <FormLabel>Duration (minutes)</FormLabel>
                                             <FormControl>
-                                                <Input type="number" placeholder="Duration in minutes" {...field} onChange={(e) => {
-                                                    const value = e.target.valueAsNumber;
-                                                    if (!isNaN(value)) {
-                                                        field.onChange(value);
-                                                    }
-                                                }} />
+                                                <Input
+                                                    type="number"
+                                                    placeholder="Duration in minutes"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        const value = e.target.valueAsNumber;
+                                                        if (!isNaN(value)) {
+                                                            field.onChange(value);
+                                                        }
+                                                    }}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -166,12 +179,17 @@ export default function AddTrailButton() {
                                         <FormItem>
                                             <FormLabel>Elevation Gain (meters)</FormLabel>
                                             <FormControl>
-                                                <Input type="number" placeholder="Elevation gain in meters" {...field} onChange={(e) => {
-                                                    const value = e.target.valueAsNumber;
-                                                    if (!isNaN(value)) {
-                                                        field.onChange(value);
-                                                    }
-                                                }} />
+                                                <Input
+                                                    type="number"
+                                                    placeholder="Elevation gain in meters"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        const value = e.target.valueAsNumber;
+                                                        if (!isNaN(value)) {
+                                                            field.onChange(value);
+                                                        }
+                                                    }}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -202,6 +220,18 @@ export default function AddTrailButton() {
                                             <FormLabel>Image URL</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="Image URL" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                <FormField
+                                    control={form.control}
+                                    name="date"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Date</FormLabel>
+                                            <FormControl>
+                                                <Input type="date" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

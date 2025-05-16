@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { addTrail } from '@/lib/persistencyService';
+import { addTrail, getTrails } from '@/lib/persistencyService';
 import { Trail } from '@/types/trails';
 
 export async function POST(request: Request) {
@@ -14,6 +14,17 @@ export async function POST(request: Request) {
         }
     } catch (error) {
         console.error('API error adding trail:', error);
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    }
+}
+
+export async function GET() {
+    try {
+        const trails = await getTrails();
+
+        return NextResponse.json(trails);
+    } catch (error) {
+        console.error('API error fetching trails:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }

@@ -9,25 +9,26 @@ interface TrailCardProps {
 export default function TrailCard({ trail, imageId = 1 }: TrailCardProps) {
   // Check if trail date is in the past
   const trailDate = new Date(trail.date)
+
   const isPastTrail = trailDate < new Date()
 
   // Format date as DD.MM.YY
   const formattedDate = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "2-digit",
-    year: "2-digit",
+    year: "numeric",
   })
     .format(trailDate)
     .replace(/\//g, ".")
 
   // Use different image IDs for variety
-  const imageUrl = `https://picsum.photos/id/${imageId}/1200/800`
+  const imageUrl = trail.imageUrl
 
   return (
     <div className="trail-card h-full">
       <div className="relative w-full h-full aspect-video">
         <Image
-          src={imageUrl || "/placeholder.svg"}
+          src={imageUrl}
           alt={trail.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

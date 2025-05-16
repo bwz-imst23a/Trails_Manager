@@ -1,13 +1,14 @@
-import { getTrails } from "@/lib/persistencyService"
+import { trailService } from "@/lib/clientServices";
 import TrailCard from "@/components/ui/trail-cards"
 import AddTrailButton from "@/components/AddTrailButton";
+import { Trail } from "@/types/trails";
 
-export default function Home() {
+export default async function Home() {
   // Server-side data fetching
-  const trails = getTrails()
+  const trails = await trailService.getTrails()
 
   // Create pairs of trails for the alternating layout
-  const createTrailPairs = (trails: any[]) => {
+  const createTrailPairs = (trails: Trail[]) => {
     const pairs = []
     for (let i = 0; i < trails.length; i += 2) {
       if (i + 1 < trails.length) {
@@ -21,7 +22,7 @@ export default function Home() {
     return pairs
   }
 
-  const trailPairs = createTrailPairs(trails)
+  const trailPairs = createTrailPairs(trails || [])
 
   return (
     <main className="container mx-auto px-4 py-6">
@@ -31,7 +32,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col gap-4">
-        {trailPairs.map((pair, rowIndex) => (
+        {trailPairs.length > 0 && trailPairs.map((pair, rowIndex) => (
           <div key={`row-${rowIndex}`} className="grid grid-cols-1 md:grid-cols-12 gap-4">
             {/* First trail in the pair - full width on mobile, alternating width on desktop */}
             <div className={`col-span-1 ${rowIndex % 2 === 0 ? "md:col-span-8" : "md:col-span-4"}`}>
