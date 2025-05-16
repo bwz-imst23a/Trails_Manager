@@ -1,5 +1,5 @@
-import { addTrail } from "@/lib/persistencyService";
 import { Trail } from "@/types/trails";
+import AddTrailButton from "@/components/AddTrailButton";
 
 export default function Home() {
   const sampleTrail: Trail = {
@@ -10,21 +10,15 @@ export default function Home() {
     durationMinute: 240, // 4 hours
     elevationGainMeters: 800, // in meters
     difficulty: "T3",
-    imageUrl: "https://placehold.co/600x400"
+    imageUrl: "https://picsum.photos/id/1/1200/800",
   };
-  async function addSampleTrail() {
-    const result = await addTrail(sampleTrail);
-    if (result) {
-      console.log("Trail added successfully:", result);
-    } else {
-      console.error("Failed to add trail.");
-    }
-  }
 
-  addSampleTrail();
   return (
     <main>
-      <h1>Hello World</h1>
+      <div>
+        <h1>Rappi Trails</h1>
+        <AddTrailButton trailData={sampleTrail} />
+      </div>
     </main>
   );
 }
