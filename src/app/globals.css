@@ -190,3 +190,7 @@
 .difficulty-t5 {
   @apply bg-[var(--color-t5)];
 }
+
+h1 {
+  @apply text-secondary text-4xl;
+}
