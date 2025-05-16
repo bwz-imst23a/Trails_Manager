@@ -32,21 +32,10 @@ export default async function Home() {
         <AddTrailButton />
       </div>
 
-      <div className="flex flex-col gap-4">
-        {trailPairs.length > 0 && trailPairs.map((pair, rowIndex) => (
-          <div key={`row-${rowIndex}`} className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            {/* First trail in the pair - full width on mobile, alternating width on desktop */}
-            <div className={`col-span-1 ${rowIndex % 2 === 0 ? "md:col-span-8" : "md:col-span-4"}`}>
-              <TrailCard trail={pair[0]} imageId={rowIndex * 2 + 1} />
-            </div>
-
-            {/* Second trail in the pair (if exists) - full width on mobile, alternating width on desktop */}
-            {pair.length > 1 && (
-              <div className={`col-span-1 ${rowIndex % 2 === 0 ? "md:col-span-4" : "md:col-span-8"}`}>
-                <TrailCard trail={pair[1]} imageId={rowIndex * 2 + 2} />
-              </div>
-            )}
-          </div>
+      {/* Responsive Grid für TrailCards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {trails && trails.map((trail, idx) => (
+          <TrailCard key={trail.id} trail={trail} imageId={idx + 1} />
         ))}
       </div>
     </main>
