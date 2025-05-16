@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { Trail } from "@/types/trails";
 
@@ -41,5 +41,13 @@ export async function getTrail(id: string): Promise<Trail | null> {
   } catch (error) {
     console.error("Error fetching trail:", error);
     return null;
+  }
+}
+
+export async function deleteTrail(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, "trails", id));
+  } catch (error) {
+    console.error("Error deleting trail:", error);
   }
 }

@@ -20,6 +20,14 @@ export const trailService = {
         return result;
     },
 
+
+    /**
+     * Fetches a trail by its unique identifier.
+     *
+     * @param id - The unique identifier of the trail to fetch.
+     * @returns A promise that resolves to a `Trail` object.
+     * @throws An error if the fetch operation fails or the response is not OK.
+     */
     async getTrail(id: string): Promise<Trail> {
         const response = await fetch(`${API_BASE_URL}/api/trails/${id}`);
         const result = await response.json();
@@ -55,5 +63,18 @@ export const trailService = {
         }
 
         return result;
+    },
+
+    async deleteTrail(id: string): Promise<void> {
+        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            const result = await response.json();
+            throw new Error(result.error || 'Failed to delete trail');
+        }
+
+        return response.json();
     }
 };

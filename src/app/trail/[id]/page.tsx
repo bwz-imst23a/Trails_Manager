@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import DeleteTrailButton from "@/components/DeleteTrailButton"
 import { trailService } from "@/lib/clientServices"
 import { ArrowLeft, Cloud } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -52,9 +53,7 @@ export default async function TrailDetailPage({ params }: { params: { id: string
           <Button variant="outline" className="bg-[var(--primary)] text-[var(--primary-foreground)] border-none px-6 py-3 text-base">
             Edit
           </Button>
-          <Button variant="outline" className="bg-[var(--color-destructive)] text-white border-none px-6 py-3 text-base">
-            Delete
-          </Button>
+          <DeleteTrailButton trailId={id} />
         </div>
       </div>
 
