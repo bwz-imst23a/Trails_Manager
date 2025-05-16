@@ -79,6 +79,7 @@ export default function AddTrailButton() {
                 }
             })
             form.reset();
+            window.location.reload();
         } catch (error) {
             toast.error("Failed to add trail", {
                 style: {
