@@ -80,29 +80,7 @@ export default function Home() {
               <SelectItem value="Name Z-A">Name Z-A</SelectItem>
               <SelectItem value="Difficulty Asc">Easiest First</SelectItem>
               <SelectItem value="Difficulty Desc">Hardest First</SelectItem>
-              <SelectItem value="Upcoming Trails">Upcoming Trails</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <div className="flex items-center">
-          <Checkbox id="showPast" checked={showPast} onCheckedChange={() => setShowPast((v) => !v)} />
-          <label htmlFor="showPast" className="ml-2 text-sm text-[var(--secondary)]">Show past trails</label>
-        </div>
-      </div>
-
-      <div className="mb-6 flex items-center gap-4">
-        <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectTrigger className="w-[180px] text-[var(--secondary)]">
-            <SelectValue placeholder="Filter" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup className="w-[180px] text-[var(--secondary)]">
-              <SelectLabel className="text-[var(--secondary)]">Sort by</SelectLabel>
-              <SelectItem value="Name A-Z">Name A-Z</SelectItem>
-              <SelectItem value="Name Z-A">Name Z-A</SelectItem>
-              <SelectItem value="Difficulty Asc">Easiest First</SelectItem>
-              <SelectItem value="Difficulty Desc">Hardest First</SelectItem>
-              <SelectItem value="Upcoming Trails">Upcoming Trails</SelectItem>
+              <SelectItem value="Upcoming Trails">Date</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
