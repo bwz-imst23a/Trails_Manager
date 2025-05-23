@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { Trail } from "@/types/trails";
 
@@ -40,6 +40,24 @@ export async function getTrail(id: string): Promise<Trail | null> {
     return trailDoc.data() as Trail;
   } catch (error) {
     console.error("Error fetching trail:", error);
+    return null;
+  }
+}
+
+export async function updateTrail(id: string, trail: Trail): Promise<{ id: string; updatedTrail: Trail } | null> {
+  try {
+    const trailRef = doc(db, "trails", id);
+    await updateDoc(trailRef, { ...trail });
+    const updatedTrailDoc = await getTrail(id);
+
+    if (!updatedTrailDoc) {
+      console.error("Updated trail not found with ID:", id);
+      return null;
+    }
+
+    return { id, updatedTrail: updatedTrailDoc };
+  } catch (error) {
+    console.error("Error updating trail:", error);
     return null;
   }
 }

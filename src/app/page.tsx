@@ -1,6 +1,6 @@
 import { trailService } from "@/lib/clientServices";
 import TrailCard from "@/components/ui/trail-cards"
-import AddTrailButton from "@/components/AddTrailButton";
+import TrailFormButton from "@/components/TrailFormButton";
 
 export default async function Home() {
   // Server-side data fetching
@@ -10,7 +10,7 @@ export default async function Home() {
     <main className="container mx-auto px-4 py-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-[var(--secondary)]">Rappi Trails</h1>
-        <AddTrailButton />
+        <TrailFormButton />
       </div>
 
       {/* Responsive Grid für TrailCards */}
