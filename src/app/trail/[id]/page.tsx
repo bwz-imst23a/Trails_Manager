@@ -5,6 +5,7 @@ import { trailService } from "@/lib/clientServices"
 import { ArrowLeft, Cloud } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
+import TrailFormButton from "@/components/TrailFormButton"
 
 // Format minutes to hours and minutes (e.g. 90 -> 1:30 h)
 function formatDuration(minutes: number): string {

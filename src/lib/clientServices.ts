@@ -65,6 +65,24 @@ export const trailService = {
         return result;
     },
 
+    async updateTrail(id: string, trailData: Trail): Promise<Trail> {
+        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(trailData),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Failed to update trail');
+        }
+
+        return result;
+    },
+
     async deleteTrail(id: string): Promise<void> {
         const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
             method: 'DELETE'

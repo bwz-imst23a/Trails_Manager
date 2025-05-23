@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { trailService } from "@/lib/clientServices";
 import TrailCard from "@/components/ui/trail-cards";
-import AddTrailButton from "@/components/AddTrailButton";
+import TrailFormButton from "@/components/TrailFormButton";
 import {
   Select,
   SelectContent,
