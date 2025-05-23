@@ -96,7 +96,11 @@ export default function AddTrailButton() {
         <div>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button disabled={isLoading}>
+                    <Button 
+                        variant="outline" 
+                        className="bg-[var(--primary)] text-[var(--primary-foreground)] border-none px-4 sm:px-6 lg:px-8 xl:px-10 py-2.5 sm:py-3 lg:py-4 xl:py-5 text-sm sm:text-base lg:text-lg xl:text-xl w-full sm:w-auto"
+                        disabled={isLoading}
+                    >
                         {isLoading ? "Adding..." : "Add Sample Trail"}
                     </Button>
                 </DialogTrigger>
