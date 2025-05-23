@@ -20,15 +20,23 @@ export const trailService = {
         return result;
     },
 
-    async getTrail(id: string): Promise<Trail> {
+
+    /**
+     * Fetches a trail by its unique identifier.
+     *
+     * @param id - The unique identifier of the trail to fetch.
+     * @returns A promise that resolves to a `Trail` object.
+     * @throws An error if the fetch operation fails or the response is not OK.
+     */
+    async getTrail(id: string): Promise<Trail | null> {
         const response = await fetch(`${API_BASE_URL}/api/trails/${id}`);
+        if (response.status === 404) {
+            return null;
+        }
         const result = await response.json();
-
-
         if (!response.ok) {
             throw new Error(result.error || 'Failed to fetch trail');
         }
-
         return result;
     },
 
@@ -55,5 +63,36 @@ export const trailService = {
         }
 
         return result;
+    },
+
+    async updateTrail(id: string, trailData: Trail): Promise<Trail> {
+        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(trailData),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Failed to update trail');
+        }
+
+        return result;
+    },
+
+    async deleteTrail(id: string): Promise<void> {
+        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            const result = await response.json();
+            throw new Error(result.error || 'Failed to delete trail');
+        }
+
+        return response.json();
     }
 };

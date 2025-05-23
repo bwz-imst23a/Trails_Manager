@@ -1,9 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
+import DeleteTrailButton from "@/components/DeleteTrailButton"
 import { trailService } from "@/lib/clientServices"
 import { ArrowLeft, Cloud } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
+import TrailFormButton from "@/components/TrailFormButton"
 
 // Format minutes to hours and minutes (e.g. 90 -> 1:30 h)
 function formatDuration(minutes: number): string {
@@ -14,7 +16,7 @@ function formatDuration(minutes: number): string {
 
 export default async function TrailDetailPage({ params }: { params: { id: string } }) {
   // Properly await the params object before accessing its properties
-  const { id } = params
+  const { id } = await params
 
   const trail = await trailService.getTrail(id)
 
@@ -49,12 +51,8 @@ export default async function TrailDetailPage({ params }: { params: { id: string
           <h1 className="text-2xl md:text-3xl font-bold text-[var(--secondary)]">{trail.name}</h1>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="bg-[var(--primary)] text-[var(--primary-foreground)] border-none px-6 py-3 text-base">
-            Edit
-          </Button>
-          <Button variant="outline" className="bg-[var(--color-destructive)] text-white border-none px-6 py-3 text-base">
-            Delete
-          </Button>
+          <TrailFormButton trail={trail} trailId={id} />
+          <DeleteTrailButton trailId={id} />
         </div>
       </div>
 

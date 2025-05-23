@@ -42,32 +42,45 @@ const trailSchema = z.object({
 
 })
 
-export default function AddTrailButton() {
+interface AddTrailButtonProps {
+    trail?: Trail;
+    trailId?: string;
+}
+
+export default function TrailFormButton(props: AddTrailButtonProps) {
+    const { trail, trailId } = props;
     const [isLoading, setIsLoading] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const form = useForm<z.infer<typeof trailSchema>>({
         resolver: zodResolver(trailSchema),
         defaultValues: {
-            name: "",
-            description: "",
-            distanceKm: 0,
-            durationMinutes: 0,
-            elevationGainMeters: 0,
-            difficulty: "T1",
-            imageUrl: "",
-            date: "",
+            name: trail?.name || "",
+            description: trail?.description || "",
+            distanceKm: trail?.distanceKm || 0,
+            durationMinutes: trail?.durationMinutes || 0,
+            elevationGainMeters: trail?.elevationGainMeters || 0,
+            difficulty: trail?.difficulty || "T1",
+            imageUrl: trail?.imageUrl || "",
+            date: trail?.date || "",
         }
     })
 
     function onSubmit(values: z.infer<typeof trailSchema>) {
-        addSampleTrail({
-            ...values,
-            imageUrl: values.imageUrl || "https://picsum.photos/id/1/1200/800",
-        })
+        console.log(trail);
+
+        if (trail || trailId) {
+            updateTrail(trailId, values)
+        }
+        else {
+            addNewTrail({
+                ...values,
+                imageUrl: values.imageUrl || "https://picsum.photos/id/1/1200/800",
+            })
+        }
     }
 
-    async function addSampleTrail(trailData: Trail) {
+    async function addNewTrail(trailData: Trail) {
         setIsLoading(true);
 
         try {
@@ -92,12 +105,37 @@ export default function AddTrailButton() {
         }
     }
 
+    async function updateTrail(id, trailData: Trail) {
+        setIsLoading(true);
+
+        try {
+            await trailService.updateTrail(id, trailData)
+            setDialogOpen(false);
+            toast("Trail updated successfully!", {
+                style: {
+                    background: "var(--primary)",
+                }
+            })
+            form.reset();
+            window.location.reload();
+        } catch (error) {
+            toast.error("Failed to update trail", {
+                style: {
+                    background: "var(--destructive)",
+                }
+            })
+            console.log("Error updating trail:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <div>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                     <Button disabled={isLoading}>
-                        {isLoading ? "Adding..." : "Add Sample Trail"}
+                        {isLoading ? "Adding..." : (trail ? "Edit Trail" : "Add Trail")}
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
