@@ -71,7 +71,7 @@ export default function Home() {
         </h1>
         {/* Add Trail Button - Enhanced sizing */}
         <div className="flex flex-col gap-2 w-full sm:w-auto sm:flex-row sm:gap-2 sm:justify-end">
-          <AddTrailButton />
+          <TrailFormButton />
         </div>
       </div>
 
@@ -157,7 +157,7 @@ export default function Home() {
             }
           </p>
           <div className="px-4 sm:px-0">
-            <AddTrailButton />
+            <TrailFormButton />
           </div>
         </div>
       )}
