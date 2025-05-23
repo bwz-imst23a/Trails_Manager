@@ -90,22 +90,22 @@ export default function Home() {
                 <SelectItem value="Name Z-A" className="px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base">Name Z-A</SelectItem>
                 <SelectItem value="Difficulty Asc" className="px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base">Easiest First</SelectItem>
                 <SelectItem value="Difficulty Desc" className="px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base">Hardest First</SelectItem>
-                <SelectItem value="Upcoming Trails" className="px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base">Upcoming Trails</SelectItem>
+                <SelectItem value="Upcoming Trails" className="px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base">Date</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
-        
+
         {/* Show Past Trails Checkbox - Enhanced for 4K */}
         <div className="flex items-center gap-2 sm:gap-3 px-1">
-          <Checkbox 
-            id="showPast" 
-            checked={showPast} 
+          <Checkbox
+            id="showPast"
+            checked={showPast}
             onCheckedChange={() => setShowPast((v) => !v)}
             className="h-4 w-4 sm:h-5 sm:w-5 lg:h-5 lg:w-5 xl:h-5 xl:w-5"
           />
-          <label 
-            htmlFor="showPast" 
+          <label
+            htmlFor="showPast"
             className="text-xs sm:text-sm lg:text-base xl:text-base text-[var(--secondary)] cursor-pointer select-none leading-tight"
           >
             Show past trails
@@ -133,17 +133,17 @@ export default function Home() {
       {(!sortedTrails || sortedTrails.length === 0) && (
         <div className="text-center py-12 sm:py-16 lg:py-24 xl:py-32">
           <div className="text-[var(--secondary)]/60 mb-4 sm:mb-6 lg:mb-8">
-            <svg 
-              className="mx-auto h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 mb-4 sm:mb-6 lg:mb-8" 
-              fill="none" 
-              viewBox="0 0 24 24" 
+            <svg
+              className="mx-auto h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 mb-4 sm:mb-6 lg:mb-8"
+              fill="none"
+              viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={1.5} 
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" 
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
               />
             </svg>
           </div>
@@ -151,8 +151,8 @@ export default function Home() {
             No trails found
           </h3>
           <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-[var(--secondary)]/70 mb-6 sm:mb-8 lg:mb-12 px-4 sm:px-0 max-w-2xl mx-auto">
-            {!showPast 
-              ? "No upcoming trails available. Try showing past trails or add a new one!" 
+            {!showPast
+              ? "No upcoming trails available. Try showing past trails or add a new one!"
               : "No trails available yet. Start by adding your first trail!"
             }
           </p>
