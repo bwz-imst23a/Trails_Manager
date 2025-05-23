@@ -39,7 +39,7 @@ const trailSchema = z.object({
     }),
     imageUrl: z.string().url("Invalid URL").optional(),
     date: z.string().min(1, "Date is required"),
-
+    time: z.string().min(1, "Time is required"),
 })
 
 interface TrailFormButtonProps {
@@ -63,6 +63,7 @@ export default function TrailFormButton(props: TrailFormButtonProps) {
             difficulty: trail?.difficulty || "T1",
             imageUrl: trail?.imageUrl || "",
             date: trail?.date || "",
+            time: trail?.time || "",
         }
     })
 
@@ -108,11 +109,6 @@ export default function TrailFormButton(props: TrailFormButtonProps) {
         }
     }
 
-    interface UpdateTrailParams {
-        id: string | undefined;
-        trailData: Trail;
-    }
-
     async function updateTrail(id: string | undefined, trailData: Trail): Promise<void> {
         if (!id) {
             toast.error("Trail ID is missing. Cannot update trail.", {
@@ -150,8 +146,8 @@ export default function TrailFormButton(props: TrailFormButtonProps) {
         <div>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button 
-                        variant="outline" 
+                    <Button
+                        variant="outline"
                         className="bg-[var(--primary)] text-[var(--primary-foreground)] border-none px-4 sm:px-6 lg:px-8 xl:px-10 py-2.5 sm:py-3 lg:py-4 xl:py-5 text-sm sm:text-base lg:text-lg xl:text-xl w-full sm:w-auto"
                         disabled={isLoading}
                     >
@@ -225,87 +221,100 @@ export default function TrailFormButton(props: TrailFormButtonProps) {
                                                         if (!isNaN(value)) {
                                                             field.onChange(value);
                                                         }
-                                    }}
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                <FormField
+                                    control={form.control}
+                                    name="elevationGainMeters"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Elevation Gain (meters)</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="number"
+                                                    placeholder="Elevation gain in meters"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        const value = e.target.valueAsNumber;
+                                                        if (!isNaN(value)) {
+                                                            field.onChange(value);
+                                                        }
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                <FormField
+                                    control={form.control}
+                                    name="difficulty"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Difficulty</FormLabel>
+                                            <FormControl>
+                                                <select {...field} className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                                                    <option value="T1">T1</option>
+                                                    <option value="T2">T2</option>
+                                                    <option value="T3">T3</option>
+                                                    <option value="T4">T4</option>
+                                                    <option value="T5">T5</option>
+                                                </select>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                <FormField
+                                    control={form.control}
+                                    name="imageUrl"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Image URL</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Image URL (optional)" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                <FormField
+                                    control={form.control}
+                                    name="date"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Date</FormLabel>
+                                            <FormControl>
+                                                <Input type="date" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                <FormField
+                                    control={form.control}
+                                    name="time"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Time</FormLabel>
+                                            <FormControl>
+                                                <Input type="time" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
                                 />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                <FormField
-                    control={form.control}
-                    name="elevationGainMeters"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Elevation Gain (meters)</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="number"
-                                    placeholder="Elevation gain in meters"
-                                    {...field}
-                                    onChange={(e) => {
-                                        const value = e.target.valueAsNumber;
-                                        if (!isNaN(value)) {
-                                            field.onChange(value);
-                                        }
-                                    }}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                <FormField
-                    control={form.control}
-                    name="difficulty"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Difficulty</FormLabel>
-                            <FormControl>
-                                <select {...field} className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
-                                    <option value="T1">T1</option>
-                                    <option value="T2">T2</option>
-                                    <option value="T3">T3</option>
-                                    <option value="T4">T4</option>
-                                    <option value="T5">T5</option>
-                                </select>
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                <FormField
-                    control={form.control}
-                    name="imageUrl"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Image URL</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Image URL (optional)" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                <FormField
-                    control={form.control}
-                    name="date"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Date</FormLabel>
-                            <FormControl>
-                                <Input type="date" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                <Button 
-                    type="submit" 
-                    disabled={isLoading}
-                    className="w-full bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary)]/90"
-                >
-                    {isLoading ? "Loading..." : (trail ? "Update Trail" : "Add Trail")}
-                </Button>
-            </form>
-        </Form>
-    </DialogHeader>
-</DialogContent>
+                                <Button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="w-full bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary)]/90"
+                                >
+                                    {isLoading ? "Loading..." : (trail ? "Update Trail" : "Add Trail")}
+                                </Button>
+                            </form>
+                        </Form>
+                    </DialogHeader>
+                </DialogContent>
             </Dialog>
         </div>
     );

@@ -54,12 +54,12 @@ export default async function TrailDetailPage({ params }: { params: { id: string
             </Button>
           </div>
         </div>
-        
+
         {/* Mobile: Centered title */}
         <h1 className="text-xl font-bold text-[var(--secondary)] text-center sm:hidden px-2">
           {trail.name}
         </h1>
-        
+
         {/* Desktop: Back button and title together */}
         <div className="hidden sm:flex items-center gap-2 lg:gap-3 xl:gap-4 flex-1 min-w-0">
           <Link href="/">
@@ -71,12 +71,10 @@ export default async function TrailDetailPage({ params }: { params: { id: string
             {trail.name}
           </h1>
         </div>
-        
+
         {/* Action buttons */}
         <div className="flex flex-col gap-2 w-full sm:w-auto sm:flex-row sm:gap-2 lg:gap-3 xl:gap-4 sm:justify-end sm:flex-shrink-0">
-          <Button variant="outline" className="bg-[var(--primary)] text-[var(--primary-foreground)] border-none px-4 sm:px-6 lg:px-8 xl:px-10 py-2.5 sm:py-3 lg:py-4 xl:py-5 text-sm sm:text-base lg:text-lg xl:text-xl w-full sm:w-auto">
-            Edit
-          </Button>
+          <TrailFormButton trail={trail} trailId={id} />
           <DeleteTrailButton trailId={id} />
         </div>
       </div>
@@ -199,7 +197,7 @@ export default async function TrailDetailPage({ params }: { params: { id: string
             </div>
             <div className="flex justify-between items-center">
               <span>Starting time:</span>
-              <span className="font-medium">14:00</span>
+              <span className="font-medium">{trail.time || "--:--"}</span>
             </div>
             <div className="flex justify-between items-center">
               <span>Date:</span>
