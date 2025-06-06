@@ -81,7 +81,7 @@ export default function Home() {
         <div className="w-full sm:w-auto">
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-full sm:w-[200px] md:w-[220px] lg:w-[260px] xl:w-[300px] text-[var(--secondary)] h-10 sm:h-11 lg:h-12 xl:h-14 text-sm lg:text-base xl:text-lg">
-              <SelectValue placeholder="Filter" />
+              <SelectValue placeholder="Sortieren" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup className="w-full text-[var(--secondary)]">
