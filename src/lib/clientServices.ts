@@ -1,5 +1,6 @@
 import { Trail } from "@/types/trails";
 
+// For client-side API calls in Next.js, we can use relative URLs when API_BASE_URL is not set
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
 export const trailService = {
@@ -10,7 +11,7 @@ export const trailService = {
      * @throws {Error} Throws an error if the API request fails or the response is not ok.
      */
     async getTrails(): Promise<Trail[]> {
-        const response = await fetch(`${API_BASE_URL}/api/trails`);
+        const response = await fetch(`/api/trails`);
         const result = await response.json();
 
         if (!response.ok) {
@@ -29,7 +30,7 @@ export const trailService = {
      * @throws An error if the fetch operation fails or the response is not OK.
      */
     async getTrail(id: string): Promise<Trail | null> {
-        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`);
+        const response = await fetch(`/api/trails/${id}`);
         if (response.status === 404) {
             return null;
         }
@@ -48,7 +49,7 @@ export const trailService = {
      * @throws An error if the server response is not OK or if an error message is returned.
      */
     async addTrail(trailData: Trail): Promise<{ id: string; data: Trail }> {
-        const response = await fetch(`${API_BASE_URL}/api/trails`, {
+        const response = await fetch(`/api/trails`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ export const trailService = {
     },
 
     async updateTrail(id: string, trailData: Trail): Promise<Trail> {
-        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
+        const response = await fetch(`/api/trails/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ export const trailService = {
     },
 
     async deleteTrail(id: string): Promise<void> {
-        const response = await fetch(`${API_BASE_URL}/api/trails/${id}`, {
+        const response = await fetch(`/api/trails/${id}`, {
             method: 'DELETE'
         });
 

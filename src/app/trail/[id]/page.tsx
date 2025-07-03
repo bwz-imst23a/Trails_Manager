@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import DeleteTrailButton from "@/components/DeleteTrailButton"
-import { trailService } from "@/lib/clientServices"
+import { getTrail } from "@/lib/persistencyService"
 import { ArrowLeft, Cloud } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
@@ -18,7 +18,7 @@ export default async function TrailDetailPage({ params }: { params: { id: string
   // Properly await the params object before accessing its properties
   const { id } = await params
 
-  const trail = await trailService.getTrail(id)
+  const trail = await getTrail(id)
 
   // If trail not found, show 404
   if (!trail) {
