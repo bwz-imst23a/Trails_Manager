@@ -29,7 +29,7 @@ export default function Home() {
   }, []);
 
   function sortTrails(trails: Trail[]): Trail[] {
-    let sorted = [...trails];
+    const sorted = [...trails];
     switch (sortBy) {
       case "Name A-Z":
         sorted.sort((a, b) => a.name.localeCompare(b.name));
