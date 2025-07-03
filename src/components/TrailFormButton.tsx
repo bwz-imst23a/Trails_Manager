@@ -39,15 +39,15 @@ const trailSchema = z.object({
     }),
     imageUrl: z.string().url("Invalid URL").optional(),
     date: z.string().min(1, "Date is required"),
-
+    time: z.string().min(1, "Time is required"),
 })
 
-interface AddTrailButtonProps {
+interface TrailFormButtonProps {
     trail?: Trail;
     trailId?: string;
 }
 
-export default function TrailFormButton(props: AddTrailButtonProps) {
+export default function TrailFormButton(props: TrailFormButtonProps) {
     const { trail, trailId } = props;
     const [isLoading, setIsLoading] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -63,6 +63,7 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
             difficulty: trail?.difficulty || "T1",
             imageUrl: trail?.imageUrl || "",
             date: trail?.date || "",
+            time: trail?.time || "",
         }
     })
 
@@ -70,7 +71,10 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
         console.log(trail);
 
         if (trail || trailId) {
-            updateTrail(trailId, values)
+            updateTrail(trailId, {
+                ...values,
+                imageUrl: values.imageUrl || "https://picsum.photos/id/1/1200/800",
+            })
         }
         else {
             addNewTrail({
@@ -105,7 +109,15 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
         }
     }
 
-    async function updateTrail(id, trailData: Trail) {
+    async function updateTrail(id: string | undefined, trailData: Trail): Promise<void> {
+        if (!id) {
+            toast.error("Trail ID is missing. Cannot update trail.", {
+                style: {
+                    background: "var(--destructive)",
+                }
+            });
+            return;
+        }
         setIsLoading(true);
 
         try {
@@ -118,7 +130,7 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
             })
             form.reset();
             window.location.reload();
-        } catch (error) {
+        } catch (error: unknown) {
             toast.error("Failed to update trail", {
                 style: {
                     background: "var(--destructive)",
@@ -134,13 +146,17 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
         <div>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button disabled={isLoading}>
-                        {isLoading ? "Adding..." : (trail ? "Edit Trail" : "Add Trail")}
+                    <Button
+                        variant="outline"
+                        className="bg-[var(--primary)] text-[var(--primary-foreground)] border-none px-4 sm:px-6 lg:px-8 xl:px-10 py-2.5 sm:py-3 lg:py-4 xl:py-5 text-sm sm:text-base lg:text-lg xl:text-xl w-full sm:w-auto"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Loading..." : (trail ? "Edit Trail" : "Add Trail")}
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Add Trail</DialogTitle>
+                        <DialogTitle>{trail ? "Edit Trail" : "Add Trail"}</DialogTitle>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                                 <FormField
@@ -240,7 +256,7 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
                                         <FormItem>
                                             <FormLabel>Difficulty</FormLabel>
                                             <FormControl>
-                                                <select {...field}>
+                                                <select {...field} className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
                                                     <option value="T1">T1</option>
                                                     <option value="T2">T2</option>
                                                     <option value="T3">T3</option>
@@ -258,7 +274,7 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
                                         <FormItem>
                                             <FormLabel>Image URL</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Image URL" {...field} />
+                                                <Input placeholder="Image URL (optional)" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -275,7 +291,26 @@ export default function TrailFormButton(props: AddTrailButtonProps) {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                <Button type="submit" disabled={isLoading}>{isLoading ? "loading..." : "submit"}</Button>
+                                <FormField
+                                    control={form.control}
+                                    name="time"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Time</FormLabel>
+                                            <FormControl>
+                                                <Input type="time" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <Button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="w-full bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary)]/90"
+                                >
+                                    {isLoading ? "Loading..." : (trail ? "Update Trail" : "Add Trail")}
+                                </Button>
                             </form>
                         </Form>
                     </DialogHeader>

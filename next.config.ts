@@ -16,7 +16,8 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  devIndicators: false
+  devIndicators: false,
+  output: 'standalone', // Required for Docker
 };
 
 export default nextConfig;
