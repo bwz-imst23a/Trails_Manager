@@ -39,19 +39,19 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-# About Docker
+## About Docker
 
-## Services
+### Services
 
-- NextJs Server
-- Mongodb Datenbank
+- Next.js Server
+- MongoDB Database
 
-## Images
+### Images
 
-- node (Für NextJs)
-- mongo (Für Mongo DB)
+- node (for Next.js)
+- mongo (for MongoDB)
 
-## Files
+### Files
 
 - [Dockerfile](Dockerfile)
-- [Docker-compose.yml](docker-compose.yml)
+- [docker-compose.yml](docker-compose.yml)
