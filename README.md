@@ -41,15 +41,48 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## About Docker
 
-### Services
+### Projektübersicht
 
-- Next.js Server
-- MongoDB Database
+Im Rahmen des Moduls **M347** wurde ein Next.js-Projekt containerisiert, um es unabhängig von der lokalen Umgebung lauffähig zu machen. Dabei wurden sowohl ein optimiertes `Dockerfile` als auch eine vollständige `docker-compose.yml` erstellt, die neben dem Applikationscontainer auch einen MongoDB-Container umfasst.
 
-### Images
+### Dockerfile
 
-- node (for Next.js)
-- mongo (for MongoDB)
+Das Dockerfile nutzt **Multi-Stage-Builds** zur Trennung von Abhängigkeitsinstallation, Buildprozess und Ausführung. Es basiert auf einem Node.js Alpine Image und durchläuft folgende Stufen:
+
+- Installation von Dependencies (`npm ci --only=production`)
+- Build der Anwendung (`npm run build`)
+- Bereitstellung des Endprodukts über `node server.js`
+
+**Besonderheiten:**
+
+- Nutzung eines dedizierten Benutzers (`nextjs`)
+- Nutzung von `standalone`-Builds zur Reduktion der Imagesize
+- Healthcheck via `node healthcheck.js`
+
+### Docker Compose Setup
+
+Die `docker-compose.yml` definiert zwei Services:
+
+- **`app`**: Das containerisierte Next.js-Projekt
+- **`mongo`**: Eine MongoDB-Datenbank mit initialem Datenbanknamen `trails_app`
+
+**Wichtige Einstellungen:**
+
+- Healthchecks für beide Container
+- Umgebungsvariablen: `MONGODB_URI`, `MONGODB_DB_NAME`, `NODE_ENV`
+- Persistenz durch ein Volume (`mongo_data`)
+- Koordination der Services über `depends_on`
+
+### Fazit
+
+Das Projekt zeigt ein vollständiges, produktionsreifes Setup zur Containerisierung einer **SSR-basierten Webanwendung**. Es beinhaltet:
+
+- Effiziente Buildprozesse mit Multi-Stage
+- Klare Trennung von Verantwortung zwischen App und Datenbank
+- Automatisierte Healthchecks zur Absicherung der Betriebsfähigkeit
+- Vorbereitung für Cloud- oder Server-Deployment
+
+Die Containerisierung erlaubt einfaches Setup, Testen und Deployment auf allen Plattformen.
 
 ### Files
 
